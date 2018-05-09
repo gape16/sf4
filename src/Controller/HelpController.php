@@ -4,9 +4,10 @@ namespace App\Controller;
 
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
-class HelpController
+class HelpController extends AbstractController
 {
     /**
      * @Route("/")
@@ -21,6 +22,14 @@ class HelpController
      */
     public function show($slug)
     {
-        return new Response(sprintf("article en question : %s", $slug));
+        $comments = [
+            "je n'aime pas ça",
+            "trop bien !",
+            "j'essaye !",
+        ];
+        return $this->render("article/show.html.twig", [
+                "title"=> ucwords(str_replace('-','',$slug)),
+                "comments"=>$comments,
+            ]);
     }
 }
